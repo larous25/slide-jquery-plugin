@@ -35,8 +35,11 @@
 	// create arrows for change state 
 	// @params object unordered list element
 	$.fn.slide.arrows = function ($ul, opts) {
-		var btnR   = $('<button class="right">'+ opts.textArrows.right +'</button>');
-		var btnL   = $('<button class="left">'+ opts.textArrows.left +'</button>');
+		var btnR   = $('<button class="right"></button>'),
+		btnL   = $('<button class="left"></button>');
+
+		btnR.text(opts.textArrows.right);
+		btnL.text(opts.textArrows.left);
 		var obj    = {
 						izq:"",
 						selector: "",
@@ -53,19 +56,45 @@
 		$ul.after(btnR)
 		$ul.after(btnL)
 
-		function left(){
+		function left(e){
 			obj.izq                  = true;
 			obj.selector             = 'li:first-child';
 			obj.animation.marginLeft = "100%" ;
 			animate(obj);
+			if(opts.indexElement === true){
+				index(true, $(e.target));
+			}
 		};
 
-		function right(){
+		function right(e){
 			obj.izq                  = false;
 			obj.selector             = 'li:last-child';
 			obj.animation.marginLeft = "-100%";
 			animate(obj);
+			if(opts.indexElement === true){
+				index(false, $(e.target));
+			}
 		};
+
+		function index(rigOrLef, $obj){
+			var $color = $obj.nextAll('.indice').eq(0).children('.color.active');
+			$color.removeClass('active');
+			if(rigOrLef == true){
+				var $element  = $color.prev('.color');
+			}else{
+				var $element  = $color.next('.color');
+			}
+			if($element.length>0){
+				$element.addClass('active');
+			}else{
+				$color = $obj.nextAll('.indice').eq(0).children('.color');
+				if(rigOrLef == true){
+					$color.last().addClass('active');
+				}else{
+					$color.first().addClass('active');
+				}
+			}
+		}
 
 		function animate(obj){
 			$ul.children('li:first-child').animate(obj.animation,"slow",function(){

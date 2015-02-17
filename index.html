@@ -4,6 +4,10 @@
 	<meta charset="UTF-8">
 	<title>Example Plugin Slide</title>
 	<style type="text/css">
+		/*
+			is recommended that ul element has
+			the property 'overflow' in hidden
+		 */
 		ul{
 			background: blue;
 			height: 100px;	
@@ -17,6 +21,23 @@
 			color: coral;
 			height: 100%;
 			width: 90%;
+		}
+		.indice{
+			-webkit-display: flex;
+			display: flex;
+			flex-direction: row;
+			-webkit-flex-direction: row;
+			height: 10px;
+			margin: 5px auto;
+			width: 30px;
+		}
+		.indice .color{
+			background: gray;
+			-webkit-flex: auto;
+			flex: auto
+		}
+		.indice .color.active{
+			background: red;
 		}
 	</style>
 </head>
