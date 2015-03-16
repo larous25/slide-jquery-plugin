@@ -12,12 +12,15 @@ indexElement: boolean
 arrow : boolean
 textArrows : object
 example 
-`{`
-`indexElement:true,`
-` arrows:true,`
-` textArrows:{`
-`    right:'<',`
-`     left:'>'}`
-`}`
+
+    {
+    "indexElement":"true",
+    "arrows":"true"
+    	"textArrows":{
+    	"right":'<',
+    	"left":'>'
+    	}
+    }
+
 
 questions [larous25](https://twitter.com/LaRous25 "twitter")

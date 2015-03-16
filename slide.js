@@ -23,13 +23,36 @@
 	// is it  a element div for either one element
 	// @params object unordered list element
 	$.fn.slide.indexElement = function($ul){
-		var size = $ul.children('li').length;
 		var $div = $('<div class="indice"></div>');
-		for (var i = 0; i < size; i++) {
-			$div.append('<div class="color"></div>');
+		$ul.children('li').each(function(index) {
+			$(this).attr('data-number','item-'+index);
+			var color = $('<div class="color"></div>');
+			color
+				.attr('data-number','item-'+index)
+				.click(move);
+			$div.append(color);
+		});
+		$div
+			.children('div:first-child')
+			.addClass('active');			
+		$ul.after($div);
+
+		function move(){
+			$(this).siblings('.active').removeClass('active');
+			$(this).addClass('active');
+			var slide = $(this).attr('data-number');
+			var $first = $ul.children('li:first-child');
+			
+			var  num = $first.attr('data-number');
+			console.log(slide +'\t' +  num);
+
+			if(slide !== num){
+				$ul.append($first);
+				$(this).trigger('click');
+			}else{
+				return false;
+			}
 		};
-		$div.children('div:first-child').addClass('active');			
-		$ul.after($div)
 	};
 
 	// create arrows for change state 
@@ -79,11 +102,13 @@
 		function index(rigOrLef, $obj){
 			var $color = $obj.nextAll('.indice').eq(0).children('.color.active');
 			$color.removeClass('active');
+			
 			if(rigOrLef == true){
 				var $element  = $color.prev('.color');
 			}else{
 				var $element  = $color.next('.color');
 			}
+
 			if($element.length>0){
 				$element.addClass('active');
 			}else{
